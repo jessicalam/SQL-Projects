@@ -1,0 +1,49 @@
+-- see start ups table
+SELECT * FROM startups;
+-- total # of companies
+SELECT COUNT(*) FROM startups;
+-- sum of valuations
+SELECT SUM(valuation) FROM startups;
+-- max raised capital
+SELECT MAX(raised) FROM startups;
+-- max raised during seed stage
+SELECT MAX(raised) 
+FROM startups 
+WHERE stage = 'Seed';
+--average valuation
+SELECT AVG(valuation) FROM startups;
+-- return the average valuation among sectors
+SELECT category,AVG(valuation) 
+FROM startups 
+GROUP BY category;
+-- average valuation in each category rounded to the 2nd decimal place
+SELECT category, ROUND(AVG(valuation),2) 
+FROM startups
+GROUP BY category; 
+-- return average valuation in each category, rounded to the averages in 2 decimal place, in desc order
+SELECT category, ROUND(AVG(valuation),2)
+FROM startups
+GROUP BY 1
+ORDER BY 2 DESC;
+-- name of each category with total # of companies that belong to it
+SELECT category, COUNT(*) 
+FROM startups 
+GROUP BY category;
+-- filter result to only include categories that have more than 3 companies in them.
+SELECT category, COUNT(*)
+FROM startups
+GROUP BY category
+HAVING COUNT(*) > 3
+ORDER BY 2 DESC;
+-- avg size of startup in each location
+SELECT location, AVG(employees)
+FROM startups
+GROUP BY location;
+-- avg size of start up in each location with average sizes above 500
+SELECT location, AVG(employees)
+FROM startups
+GROUP BY location
+HAVING AVG(employees) > 500;
+
+
+
